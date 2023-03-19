@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "184002823464",
+    "project_id": "thinktanker-1f8e8",
+    "storage_bucket": "thinktanker-1f8e8.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:184002823464:android:75d14774403690f78bbc1d",
+        "android_client_info": {
+          "package_name": "com.example.think_tanker"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "184002823464-798itjn7j485e9g2ipmmnhge285t3vms.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.think_tanker",
+            "certificate_hash": "56e345318a4722d746c5ba2c6e11afb1e31e375b"
+          }
+        },
+        {
+          "client_id": "184002823464-054vepuhlobvv4rssbv9sqieqocq5iga.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBXEi9wmPCRAl4ajiek0dNXbf1QeQ0gtRo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "184002823464-054vepuhlobvv4rssbv9sqieqocq5iga.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
