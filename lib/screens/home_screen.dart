@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:think_tanker/widgets/note_card.dart';
 
+import 'nav_bar.dart';
 import 'note_editor.dart';
 import 'note_reader.dart';
 
@@ -22,6 +23,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     User? user = _auth.currentUser;
     return Scaffold(
+      drawer: MyNavBar(),
       backgroundColor: Colors.black,
       appBar: AppBar(
         backgroundColor: Colors.black,
