@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
 import 'package:think_tanker/widgets/note_card.dart';
 
 import 'nav_bar.dart';
@@ -24,73 +25,80 @@ class _HomeScreenState extends State<HomeScreen> {
     User? user = _auth.currentUser;
     return Scaffold(
       drawer: MyNavBar(),
-      backgroundColor: Colors.black,
+      backgroundColor: Colors.white,
       appBar: AppBar(
-        backgroundColor: Colors.black,
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Container(
-                padding: const EdgeInsets.all(10.0),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20.0),
-                  color: Colors.white,
-                ),
-                child: const Text(
-                  'ThinkTanker',
-                  style: TextStyle(
-                    color: Colors.black,
-                  ),
-                )),
-            const Image(
-              image: AssetImage('assets/images/pic.png'),
-              height: 50,
-              width: 50,
-            )
-          ],
+        backgroundColor: Colors.teal[600],
+        title: Text(
+          "ThinkTanker",
+          style: GoogleFonts.adventPro(
+              color: Colors.white, fontWeight: FontWeight.bold, fontSize: 25),
         ),
-        centerTitle: true,
         elevation: 0,
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
+      body: Container(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              "Welcome ${user!.displayName}!",
-              style: GoogleFonts.adventPro(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 30),
-            ),
+            Stack(children: [
+              Container(
+                width: MediaQuery.of(context).size.width,
+                child: const Image(image: AssetImage("assets/images/main2.jpeg"),
+                fit: BoxFit.fitWidth
+                
+                ),
+              ),
+              Positioned(
+                top: 175,
+                left: 20,
+                child: Text(
+                  "Your",
+                  style: GoogleFonts.abyssinicaSil(
+                      color: Colors.white,
+                      fontWeight: FontWeight.normal,
+                      fontStyle: FontStyle.italic,
+                      fontSize: 30),
+                ),
+              ),
+              Positioned(
+                top: 200,
+                left: 30,
+                child: Text(
+                  "Things",
+                  style: GoogleFonts.abyssinicaSil(
+                      color: Colors.white,
+                      fontWeight: FontWeight.normal,
+                      fontStyle: FontStyle.italic,
+                      fontSize: 30),
+                ),
+              ),
+              Positioned(
+                top: 210,
+                right: 10,
+                child: Text(
+                  DateFormat.yMMMd().format(DateTime.now()),
+                  style: GoogleFonts.abyssinicaSil(
+                      color: Colors.white,
+                      fontWeight: FontWeight.normal,
+                      fontStyle: FontStyle.italic,
+                      fontSize: 20),
+                ),
+              )
+            ]),
             const SizedBox(
-              height: 20.0,
+              height: 10.0,
             ),
             Container(
-              padding: const EdgeInsets.all(5.0),
-              width: double.infinity,
-              decoration: BoxDecoration(
-                color: Colors.white.withOpacity(0.8),
-                borderRadius: BorderRadius.circular(10.0),
-              ),
-              child: Text(
-                "Your Notes",
-                style: GoogleFonts.roboto(
-                    color: Colors.black,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 22),
-              ),
-            ),
-            const SizedBox(
-              height: 30.0,
-            ),
+                margin: EdgeInsets.symmetric(horizontal: 10),
+                child: Text(
+                  "INBOX",
+                  style: GoogleFonts.roboto(color: Colors.black, fontSize: 20,fontWeight: FontWeight.bold),
+                )),
             Expanded(
               child: StreamBuilder<QuerySnapshot>(
                   stream: _firestore
                       .collection("Notes")
-                      .where("userId", isEqualTo: user.email)
+                      .where("userId", isEqualTo: user?.email)
                       .snapshots(),
                   builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
                     if (snapshot.connectionState == ConnectionState.waiting) {
@@ -100,30 +108,42 @@ class _HomeScreenState extends State<HomeScreen> {
                     }
 
                     if (snapshot.hasData) {
-                      return GridView(
-                          gridDelegate:
-                              const SliverGridDelegateWithFixedCrossAxisCount(
-                                  crossAxisCount: 2),
-                          children: snapshot.data!.docs
-                              .map((note) => noteCard(() {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) => NoteReaderScreen(
-                                          doc: note,
-                                        ),
-                                      ),
-                                    );
-                                  }, note))
-                              .toList());
+                      return Expanded(
+                        child: ListView.builder(
+                          itemCount: snapshot.data!.docs.length,
+                          itemBuilder: (context, index) {
+                            var note = snapshot.data!.docs[index];
+                            return Column(children: [
+                              noteCard(() {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => NoteReaderScreen(
+                                      doc: note,
+                                    ),
+                                  ),
+                                );
+                              }, note),
+                              Container(
+                                margin: EdgeInsets.symmetric(horizontal: 10),
+                                child: const Divider(
+                                  color: Colors.grey,
+                                  thickness: 1,
+                                ),
+                              )
+                            ]);
+                          },
+                        ),
+                      );
                     } else {
                       return Center(
                         child: Text(
                           "There is no notes",
-                          style: GoogleFonts.nunito(color: Colors.white,fontSize: 40),
+                          style: GoogleFonts.nunito(
+                              color: Colors.white, fontSize: 40),
                         ),
                       );
-                    }  
+                    }
                   }),
             ),
           ],
@@ -135,10 +155,10 @@ class _HomeScreenState extends State<HomeScreen> {
             return NoteEditorScreen();
           }));
         },
-        backgroundColor: Colors.white,
+        backgroundColor: Color(0xFF2EBAEF),
         child: const Icon(
           Icons.add,
-          color: Colors.black,
+          color: Colors.white,
         ),
       ),
     );

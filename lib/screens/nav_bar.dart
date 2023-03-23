@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class MyNavBar extends StatelessWidget {
   const MyNavBar({super.key});
@@ -11,16 +12,19 @@ class MyNavBar extends StatelessWidget {
     final FirebaseFirestore _firestore = FirebaseFirestore.instance;
     User? user = _auth.currentUser;
     return Drawer(
-      backgroundColor: Colors.grey,
+      backgroundColor:Colors.grey.shade900.withOpacity(0.95),
       child: ListView(
         children: [
           UserAccountsDrawerHeader(
-              decoration:  const BoxDecoration(
+              decoration: BoxDecoration(
                 image: DecorationImage(
-                  image: AssetImage("assets/images/main.png"),
+                  image: AssetImage("assets/images/nav.jpeg"),
                   fit: BoxFit.cover,
+                  colorFilter: ColorFilter.mode(
+                    Colors.black.withOpacity(0.5),
+                    BlendMode.colorBurn,
+                  ),
                 ),
-                // color: Colors.blue.shade900,
               ),
               accountName: Text(
                 user!.displayName.toString(),
@@ -36,9 +40,16 @@ class MyNavBar extends StatelessWidget {
               ),
               currentAccountPicture: CircleAvatar(
                 backgroundImage: NetworkImage(user.photoURL.toString()),
-              )),
-              
-              
+              ),
+              ),
+          ListTile(
+            title: Text("Exit",style: TextStyle(color:Colors.white,fontSize: 20.0,),),
+            leading : Icon(Icons.exit_to_app,color: Colors.white,size:25,),
+            onTap:(){
+              SystemNavigator.pop();
+            },
+
+          )
         ],
       ),
     );

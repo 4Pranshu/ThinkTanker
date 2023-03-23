@@ -6,7 +6,6 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
 import 'package:think_tanker/screens/login_screen.dart';
-import 'package:think_tanker/styles/app_style.dart';
 
 import 'home_screen.dart';
 

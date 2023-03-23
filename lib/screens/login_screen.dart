@@ -15,21 +15,17 @@ class _GoogleLoginScreenState extends State<GoogleLoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        backgroundColor: Color(0xFF46539E),
       body: Container(
-        decoration: const BoxDecoration(
-            gradient: LinearGradient(colors: [
-          Colors.black,
-          Colors.black,
-          Colors.black,
-        ], begin: Alignment.topCenter, end: Alignment.bottomCenter)),
+        
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Container(
-              width: 200,
-              height: 200,
-              child: Image(image: AssetImage("assets/images/pic.png"))),
-            SizedBox(height: 20),
+              width: 175,
+              height: 175,
+              child: const Image(image: AssetImage("assets/images/pic.png"))),
+            const SizedBox(height: 20),
             const Text(
               "Get in the Tank",
               style: TextStyle(
@@ -38,7 +34,7 @@ class _GoogleLoginScreenState extends State<GoogleLoginScreen> {
                 color: Colors.orange,
               ),
             ),
-            SizedBox(height: 50),
+            const SizedBox(height: 50),
             Center(
               child: Container(
                 margin: const EdgeInsets.symmetric(horizontal: 30),
